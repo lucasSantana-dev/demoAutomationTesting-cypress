@@ -1,13 +1,7 @@
-describe('teste acessar dados fixtures', () => {
+import actions from "../support/pages/login/actions";
+describe('Login', () => {
 
     let dataBase
-
-    Cypress.on('uncaught:exception', (err, runnable) => {
-        // Ignora erros relacionados ao 'angular is not defined'
-        if (err.message.includes('angular is not defined')) {
-          return false;
-        }
-      });
 
     before(() => {
         cy.fixture('example.json').then((data) => {
@@ -16,7 +10,9 @@ describe('teste acessar dados fixtures', () => {
         })        
     });
 
-    it('teste', () => {
-        cy.get('#email').type(dataBase.email)
+    it('teste Login correto', () => {
+        actions.inserirUserName(dataBase.userName) 
+        actions.inserirSenha(dataBase.password)
+        actions.confirmarLogin()
     });
 });
